@@ -3,5 +3,17 @@
 
     <string name="hello">Hello World, MediPlusActivity!</string>
     <string name="app_name">MediPlus</string>
+       
+    
+    <string-array name="blood_groups">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 
 </resources>

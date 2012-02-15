@@ -24,7 +24,6 @@
             android:gravity="center"
             android:text="ProfileName"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -68,7 +67,7 @@
             android:layout_height="wrap_content"
             android:text="Symptoms"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-
+
         <EditText
             android:id="@+id/etSymptoms"
             android:layout_width="match_parent"
@@ -81,77 +80,74 @@
             android:layout_height="wrap_content"
             android:text="Medication"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-
+
         <EditText
             android:id="@+id/etMedication"
             android:layout_width="match_parent"
             android:layout_height="77dp"
             android:inputType="textMultiLine" />
-
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
+
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/btAllergyBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.27"
             android:text="Back" />
-
+
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/beAllergyAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.29"
             android:text="Add" />
-
+
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btAllergyDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.23"
             android:text="Delete" />
-
+
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btAllergyNeXt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.36"
             android:text="Next" />
-
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
-         <Button
+
+        <Button
             android:id="@+id/btAllergyToMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Main Menu" />
-
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.79"
-            android:text="Medi+"
             android:gravity="center_horizontal"
+            android:text="Medi+"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
             android:id="@+id/btAllergyToProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="0.35"
             android:text="Profile" />
-
     </LinearLayout>
-    
+
 </LinearLayout>

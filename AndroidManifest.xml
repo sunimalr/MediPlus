@@ -15,7 +15,7 @@
         >
         
         <activity
-            android:name=".SplashScreen"
+            android:name=".SplashScreenLayout"
             android:label="@string/app_name" 
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
@@ -26,7 +26,7 @@
         </activity>
         
         <activity
-            android:name="com.mediplus.presentation.Menu"
+            android:name=".MenuLayout"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="com.mediplus.presentation.MENU" />
@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mediplus.presentation.Profile"
+            android:name=".ProfileLayout"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="com.mediplus.presentation.PROFILE" />
@@ -45,10 +45,30 @@
         </activity>
         
          <activity
-            android:name="com.mediplus.presentation.MedicalHistory"
+            android:name=".MedicalHistoryLayout"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="com.mediplus.presentation.HISTORY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+         <activity
+            android:name=".AllergyLayout"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.mediplus.presentation.ALLERGY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+         <activity
+            android:name=".MedicalHistoryLayout"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.mediplus.presentation.MEDICAL_HISTORY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

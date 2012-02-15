@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class Menu extends ListActivity{
+public class MenuLayout extends ListActivity{
 	
-	String lists[]={"My Profile","Medical History","General Reminders","Backup","Sync With Server"};
-	String classes[]={"Profile","MedicalHistory"};
+	String lists[]={"My ProfileLayout","Medical History","General Reminders","Backup","Sync With Server"};
+	String classes[]={"ProfileLayout","MedicalHistoryLayout"};
 	
 	
 	@Override
@@ -22,7 +22,7 @@ public class Menu extends ListActivity{
 		try{
 		Class ourClass=Class.forName("com.mediplus.presentation."+str);
 	
-		Intent intent=new Intent(Menu.this, ourClass);
+		Intent intent=new Intent(MenuLayout.this, ourClass);
 		startActivity(intent);
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();
@@ -34,7 +34,7 @@ public class Menu extends ListActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setListAdapter(new ArrayAdapter<String>(Menu.this, android.R.layout.simple_list_item_1, lists));
+		setListAdapter(new ArrayAdapter<String>(MenuLayout.this, android.R.layout.simple_list_item_1, lists));
 	}
 
 	

@@ -11,6 +11,9 @@ import com.mediplus.entity.Allergy;
 import com.mediplus.entity.User;
 import com.mediplus.persistence.DatabaseUtil;
 
+/*
+ * Responsible for handling logic and connection between the databse layer and GUI front end allergy layout.
+ */
 public class AllergyManager {
 	
 	DatabaseUtil dbUtil;
@@ -42,6 +45,9 @@ public class AllergyManager {
 		
 	}
 	
+	/*
+	 * returns a arraylist with fetched records
+	 */
 	public ArrayList<Allergy> getAllergyList(Context ctx,String profile){
 		
 		dbUtil = new DatabaseUtil(ctx);

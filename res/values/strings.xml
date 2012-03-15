@@ -3,6 +3,7 @@
 
     <string name="hello">Hello World, MediPlusActivity!</string>
     <string name="app_name">MediPlus</string>
+    <string name="current_profile_name">Current Profile</string>
        
     
     <string-array name="blood_groups">

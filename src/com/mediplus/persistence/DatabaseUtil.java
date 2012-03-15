@@ -14,32 +14,55 @@ import android.util.Log;
 
 public class DatabaseUtil {
 
+	/*
+	 * Database util is the class that is connected with SQLite Database. It
+	 * provides the API to access database for classes that are in upper layers.
+	 */
+
 	private static final String TAG = "DatabaseUtil";
-	private static final String DATABASE_NAME = "mediplusDatabase";
+	private static final String DATABASE_NAME = "mediplusDB2";
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_TABLE = "tb_allergy";
-	private static final String DATABASE_TABLE_PROFILE = "tb_profile";
+	private static final String DATABASE_TABLE_PROFILE = "tb_user_profile";
 	private static final String DATABASE_TABLE_MEDICAL_HISTORY = "tb_history";
 	public static final String KEY_NAME = "name";
 	public static final String KEY_GRADE = "grade";
 	public static final String KEY_ROWID = "_id";
 	// ###################################################
+
+	/*
+	 * Allergy table attributes
+	 */
+
 	public static final String KEY_ALLERGY_PROFILE = "profile";
 	public static final String KEY_ALLERGY_ALLERGY = "allergy";
 	public static final String KEY_ALLERGY_SYMPTOMS = "symptoms";
 	public static final String KEY_ALLERGY_TREATMENT = "treatment";
 	// ###########################################################################
+
+	/*
+	 * Medical history attributes
+	 */
+
 	private static final String KEY_MEDICAL_HISTORY_PROFILE = "profile";
 	private static final String KEY_MEDICAL_HISTORY_DATE = "date";
 	private static final String KEY_MEDICAL_HISTORY_DESCRIPTION = "description";
 	// ###########################################################################
+
+	/*
+	 * Profile table attributes
+	 */
 	private static final String KEY_PROFILE_PROFILE = "profile";
 	private static final String KEY_PROFILE_GENDER = "gender";
 	private static final String KEY_PROFILE_DOB = "dob";
 	private static final String KEY_PROFILE_WEIGHT = "weight";
 	private static final String KEY_PROFILE_HEIGHT = "height";
+	private static final String KEY_PROFILE_TYPE = "type";
 	private static final String KEY_PROFILE_DESCRIPTION = "description";
 
+	/*
+	 * following strings contain the sql queries to create database tables
+	 */
 	private static final String CREATE_ALLERGY_TABLE = "create table "
 			+ DATABASE_TABLE + " (" + KEY_ALLERGY_PROFILE + " text not null , "
 			+ KEY_ALLERGY_ALLERGY + " text primary key , "
@@ -59,13 +82,17 @@ public class DatabaseUtil {
 			+ " text not null , " + KEY_PROFILE_GENDER + " text , "
 			+ KEY_PROFILE_DOB + " text , " + KEY_PROFILE_WEIGHT + " float, "
 			+ KEY_PROFILE_HEIGHT + " float , " + KEY_PROFILE_DESCRIPTION
-			+ " text );";
+			+ " text , " 
+			+ KEY_PROFILE_TYPE+" text );";
 
 	private final Context mCtx;
 
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
 
+	/*
+	 * Inner class database helper implement methods of SQLite Open helper
+	 */
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 		DatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -125,6 +152,10 @@ public class DatabaseUtil {
 
 	// +++++++++++Adding Methods+++++++++++++++++++++++++++++++++
 
+	/*
+	 * Methods to insert records to respective tables in the database
+	 */
+
 	public long addAllergy(Allergy a) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(KEY_ALLERGY_PROFILE, a.getUser());
@@ -155,6 +186,9 @@ public class DatabaseUtil {
 		initialValues.put(KEY_PROFILE_WEIGHT, u.getWeight());
 		initialValues.put(KEY_PROFILE_HEIGHT, u.getHeight());
 		initialValues.put(KEY_PROFILE_DESCRIPTION, u.getDesc());
+		initialValues.put(KEY_PROFILE_TYPE, u.getType());
+		
+		
 
 		return mDb.insert(DATABASE_TABLE_PROFILE, null, initialValues);
 
@@ -164,9 +198,9 @@ public class DatabaseUtil {
 
 	// ++++++++++++Delete Methods+++++++++++++++++++++++++++++++++++
 
-	public boolean deleteStudent(long rowId) {
-		return mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
-	}
+	/*
+	 * methods to delete records of database tables one at a time
+	 */
 
 	public boolean deleteAllergy(Allergy a) {
 
@@ -187,18 +221,11 @@ public class DatabaseUtil {
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	/**
-	 * This method will return Cursor holding all the Student records.
-	 * 
-	 * @return Cursor
-	 */
-
 	// ++++++++++++++fetchAll Methods+++++++++++++++++++++++++++++++++++
 
-	public Cursor fetchAllStudents() {
-		return mDb.query(DATABASE_TABLE, new String[] { KEY_ROWID, KEY_NAME,
-				KEY_GRADE }, null, null, null, null, null);
-	}
+	/*
+	 * fetches all records from database tables
+	 */
 
 	public Cursor fetchAllAllergy() {
 		return mDb.query(DATABASE_TABLE, new String[] { KEY_ALLERGY_PROFILE,
@@ -217,16 +244,23 @@ public class DatabaseUtil {
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	// +++++++++++++++fetch specific profile records+++++++++++++++++++++++
+
+	/*
+	 * fetches records under a given criterion
+	 */
+
 	public Cursor fetchProfileAllergy(String profile) throws SQLException {
 		Cursor mCursor = mDb.query(true, DATABASE_TABLE, new String[] {
 				KEY_ALLERGY_PROFILE, KEY_ALLERGY_ALLERGY, KEY_ALLERGY_SYMPTOMS,
-				KEY_ALLERGY_TREATMENT }, KEY_ALLERGY_PROFILE + "=" + profile,
-				null, null, null, null, null);
+				KEY_ALLERGY_TREATMENT }, KEY_ALLERGY_PROFILE + "=?",
+				new String[] { profile }, null, null, null, null);
 		if (mCursor != null) {
 			mCursor.moveToFirst();
 		}
 		return mCursor;
 	}
+	
+	
 
 	public Cursor fetchProfileMedicalHistory(String profile)
 			throws SQLException {
@@ -254,19 +288,30 @@ public class DatabaseUtil {
 		}
 		return mCursor;
 	}
+	
+	public Cursor fetchMasterProfile() throws SQLException {
+				
+		Cursor mCursor = mDb.query(true, DATABASE_TABLE_PROFILE,
+				new String[] { KEY_PROFILE_PROFILE, KEY_PROFILE_GENDER,
+						KEY_PROFILE_DOB, KEY_PROFILE_WEIGHT,
+						KEY_PROFILE_HEIGHT, KEY_PROFILE_DESCRIPTION, KEY_PROFILE_TYPE },
+				KEY_PROFILE_PROFILE + "=?", new String[] { "Sunimal Rathnayake" }, null,
+				null, null, null);
+		
+		if (mCursor != null) {
+			mCursor.moveToFirst();
+		}
+		return mCursor;
+	}
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	/**
-	 * This method will update Student record.
-	 * 
-	 * @param id
-	 * @param name
-	 * @param standard
-	 * @return boolean
+	// +++++++++++++++update methods++++++++++++++++++++++++++++++++++++++++
+
+	/*
+	 * methods to update records of database tables
 	 */
 
-	// +++++++++++++++update methods++++++++++++++++++++++++++++++++++++++++
 	public boolean updateAllergy(Allergy a) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_ALLERGY_PROFILE, a.getUser());

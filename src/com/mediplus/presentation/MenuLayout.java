@@ -9,8 +9,8 @@ import android.widget.ListView;
 
 public class MenuLayout extends ListActivity{
 	
-	String lists[]={"My ProfileLayout","Medical History","General Reminders","Backup","Sync With Server"};
-	String classes[]={"ProfileLayout","MedicalHistoryLayout"};
+	String lists[]={"My Profile","Other Profiles","General Reminders","Backup","Sync With Server","Exit"};
+	String classes[]={"ProfileLayout","Graph","","","",""};
 	
 	
 	@Override

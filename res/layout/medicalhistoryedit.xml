@@ -100,15 +100,13 @@
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
-
-
+
          <Button
-            android:id="@+id/btMedicalHistoryExit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Exit" />
-
+             android:id="@+id/btMedicalHistoryExit"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_weight="0.29"
+             android:text="Main Menu" />
 
         <TextView
             android:id="@+id/textView5"
@@ -118,15 +116,12 @@
             android:text="Medi+"
             android:gravity="center_horizontal"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
-
-
-
+
         <Button
             android:id="@+id/btMedicalHistoryToProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.35"
+            android:layout_weight="0.88"
             android:text="Profile" />
 
     </LinearLayout>

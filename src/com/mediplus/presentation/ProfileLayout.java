@@ -35,23 +35,24 @@ public class ProfileLayout extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.profilemain);
+		setContentView(R.layout.profilemainview);
 		this.setup();
 		
 		eventListeners();
 	}
 	
-	TextView profileName;
+	TextView profileName,tvgender,tvdob,tvweight,tvheight,tvblood;
 	RadioButton male,female;
 	EditText etDOB,etWeight,etHeight;
 	Spinner spBloodGroup;
-	User curUser;
+	User curUser,curUser1;
 	
 
 	private void setup(){
 	//	DatabaseUtil dbUtil = new DatabaseUtil(getApplicationContext());
 		//dbUtil.open();
 		
+		/*
 		profileName=(TextView)findViewById(R.id.tvProfileName);
 		male=(RadioButton)findViewById(R.id.radioMale);
 		female=(RadioButton)findViewById(R.id.radioFemale);
@@ -59,14 +60,44 @@ public class ProfileLayout extends Activity{
 		etWeight=(EditText)findViewById(R.id.etWeight);
 		etHeight=(EditText)findViewById(R.id.etHeight);
 		spBloodGroup=(Spinner)findViewById(R.id.spinnerBloodGroup);
+		*/
+		profileName=(TextView)findViewById(R.id.tvProfileName);
+		tvgender=(TextView)findViewById(R.id.tvprofileviewgender);
+		tvdob=(TextView)findViewById(R.id.tvprofileviewdob);
+		tvweight=(TextView)findViewById(R.id.tvprofileviewweight);
+		tvheight=(TextView)findViewById(R.id.tvprofileviewheight);
+		tvblood=(TextView)findViewById(R.id.tvprofileviewblood);
 		
-		curUser=new User();
-		curUser.setUser("Sunimal");
+		
+		
+		
+		curUser1=new User();
+		curUser1.setUser("Sunimal Rathnayake");
+		curUser1.setType("master");
+		curUser1.setGender("male");
+		curUser1.setDob("21/01/1990");
+		curUser1.setWeight(Float.parseFloat("80.4"));
+		curUser1.setHeight(Float.parseFloat("144.2"));
+		
+		
+		
 		//dbUtil.addProfile(curUser);
 		//dbUtil.close();
-		curUser=UserProfileManager.getUserProfileManager().getUserDetails("Sunimal", getApplicationContext());
+		//curUser=UserProfileManager.getUserProfileManager().getUserDetails("Sunimal", getApplicationContext());
+		//UserProfileManager.getUserProfileManager().init(getApplicationContext(), curUser);
+		UserProfileManager.getUserProfileManager().updateProfile(curUser1, getApplicationContext());
 		
+		curUser=UserProfileManager.getUserProfileManager().loadMasterProfile(getApplicationContext());
+		
+		//Toast.makeText(getApplicationContext(), "Got Master Profile", Toast.LENGTH_LONG).show();
 		profileName.setText(curUser.getUser());
+		tvgender.setText(curUser.getGender());
+		tvdob.setText(curUser.getDob());
+		tvweight.setText(curUser.getWeight().toString());
+		tvheight.setText(curUser.getHeight().toString());
+		//tvblood.setText(curUser.get)
+		
+		/*
 		if(curUser.getGender().equalsIgnoreCase("male"))
 			male.setChecked(true);
 		else
@@ -74,26 +105,29 @@ public class ProfileLayout extends Activity{
 		etHeight.setText(curUser.getHeight().toString());
 		etDOB.setText(curUser.getDob());
 		etWeight.setText(curUser.getWeight().toString());
+	*/
 	}
 	
-	Button btProfileToMenu,btEditProfile,btMedicalCharts,btAllergy,btMedicalHistory,btEvents;
+	Button btProfileToMenu,btEditProfile,btMedicalCharts,btViewAllergy,btMedicalHistory,btEvents;
 
 	
 	
 	private void eventListeners(){
 		
 		btProfileToMenu=(Button)findViewById(R.id.btProfileToMenu);
-		btMedicalCharts=(Button)findViewById(R.id.btProfileMedicalCharts);
+		btMedicalCharts=(Button)findViewById(R.id.btProfileviewMedicalCharts);
 		btEditProfile=(Button)findViewById(R.id.btEditProfile);
-		btAllergy=(Button)findViewById(R.id.btProfileAllergies);
-		btMedicalHistory=(Button)findViewById(R.id.btProfileMedicalHistory);
-		btEvents=(Button)findViewById(R.id.btProfileEvents);
+		btViewAllergy=(Button)findViewById(R.id.btProfileviewAllergies);
+		btMedicalHistory=(Button)findViewById(R.id.btProfileviewMedicalHistory);
+		btEvents=(Button)findViewById(R.id.btProfileviewEvents);
 		
 		btMedicalCharts.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				Intent medichartmenuintent=new Intent("com.mediplus.presentation.MEDICAL_CHART_MENU");
+				startActivity(medichartmenuintent);
 				
 			}
 		});
@@ -119,12 +153,12 @@ public class ProfileLayout extends Activity{
 			}
 		});
 		
-		btAllergy.setOnClickListener(new OnClickListener() {
+		btViewAllergy.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent allergyIntent=new Intent("com.mediplus.presentation.ALLERGY");
+				Intent allergyIntent=new Intent("com.mediplus.presentation.ALLERGYMAIN");
 				startActivity(allergyIntent);
 				
 			}

@@ -54,7 +54,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
-            android:id="@+id/etAllergyName"
+            android:id="@+id/etAllergyEditName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -69,7 +69,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
-            android:id="@+id/etAllergySymptoms"
+            android:id="@+id/etAllergyEditSymptoms"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:inputType="textMultiLine" />
@@ -82,7 +82,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
-            android:id="@+id/etAllergyMedication"
+            android:id="@+id/etAllergyEditMedication"
             android:layout_width="match_parent"
             android:layout_height="77dp"
             android:inputType="textMultiLine" />
@@ -94,11 +94,11 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/btAllergyAdd"
+            android:id="@+id/btAllergySaveChanges"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.29"
-            android:text="Add" />
+            android:text="Save Changes" />
     </LinearLayout>
 
    

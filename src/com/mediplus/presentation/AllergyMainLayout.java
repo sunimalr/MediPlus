@@ -23,7 +23,7 @@ public class AllergyMainLayout extends Activity {
 	private void setEventListeners() {
 
 		btGetAllergyList = (Button) findViewById(R.id.btGetAllergyList);
-		btAddnewAllergy = (Button) findViewById(R.id.btAddNewAllergy);
+		btAddnewAllergy = (Button) findViewById(R.id.btAddNewAllergy1);
 		
 		
 

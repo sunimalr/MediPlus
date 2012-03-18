@@ -18,12 +18,12 @@ import android.widget.Toast;
 /*
  * Responsible for handling GUI functions of Allergy layout specified in allergy.xml
  */
-public class AllergyLayout extends Activity {
+public class CurrentAllergyEditLayout extends Activity {
 
-	Button btAddNewAllergy;
-	EditText etAllergy, etSymptoms, etTreatment;
-	TextView allergyProfile;
-	Allergy curAllergy;
+	private Button btSaveAllergy;
+	private EditText etAllergy, etSymptoms, etTreatment;
+	private TextView allergyProfile;
+	private Allergy curAllergy;
 	int index;
 	ArrayList<Allergy> curAllergyList;
 
@@ -31,7 +31,7 @@ public class AllergyLayout extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.allergyedit);
+		setContentView(R.layout.currentallergyedit);
 		this.setup();
 		this.setEventListeners();
 	}
@@ -41,41 +41,25 @@ public class AllergyLayout extends Activity {
 	 */
 	private void setup() {
 
-		etAllergy = (EditText) findViewById(R.id.etAllergyName);
-		etSymptoms = (EditText) findViewById(R.id.etAllergySymptoms);
-		etTreatment = (EditText) findViewById(R.id.etAllergyMedication);
+		etAllergy = (EditText) findViewById(R.id.etAllergyEditName);
+		etSymptoms = (EditText) findViewById(R.id.etAllergyEditSymptoms);
+		etTreatment = (EditText) findViewById(R.id.etAllergyEditMedication);
 		allergyProfile = (TextView) findViewById(R.id.tvAllergyProfile);
-		btAddNewAllergy=(Button)findViewById(R.id.btAllergyAdd);
+		btSaveAllergy=(Button)findViewById(R.id.btAllergySaveChanges);
 		
 		curAllergy = new Allergy();
 		
-		curAllergyList = AllergyManager.getAllergyManager().getAllergyList(
-				getApplicationContext(), "Sunimal Rathnayake");
+		curAllergy=AllergyManager.getAllergyManager().getCurrentAllergy();
 		
-		index=0;
+		etAllergy.setText(curAllergy.getAllergy());
+		etSymptoms.setText(curAllergy.getSymptoms());
+		etTreatment.setText(curAllergy.getTreatment());
+		allergyProfile.setText(curAllergy.getUser());
 		
-		/*
-		if (curAllergyList.size() > 0) {
-			allergyProfile.setText(curAllergyList.get(index).getUser());
-			etAllergy.setText(curAllergyList.get(index).getAllergy());
-			etSymptoms.setText(curAllergyList.get(index).getSymptoms());
-			etTreatment.setText(curAllergyList.get(index).getTreatment());
-		}
-		else
-		
-		*/
-			Toast.makeText(getApplicationContext(), "Enter Allergy Details Here.", Toast.LENGTH_LONG).show();
+		Toast.makeText(getApplicationContext(), "Make Allergy Changes Here.", Toast.LENGTH_LONG).show();
 	}
 
-	/*
-	 * enable text fields
-	 */
-	public void enableEdit() {
-
-		etAllergy.setEnabled(false);
-		etSymptoms.setEnabled(true);
-
-	}
+	
 
 	
 	/*
@@ -83,7 +67,7 @@ public class AllergyLayout extends Activity {
 	 */
 	private void setEventListeners() {
 		
-		btAddNewAllergy.setOnClickListener(new OnClickListener() {
+		btSaveAllergy.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -94,7 +78,7 @@ public class AllergyLayout extends Activity {
 				newAllergy.setSymptoms(etSymptoms.getText().toString());
 				newAllergy.setTreatment(etTreatment.getText().toString());
 				Toast.makeText(getApplicationContext(), "New allergy : " + newAllergy.getAllergy()+" saved.", Toast.LENGTH_LONG).show();
-				AllergyManager.getAllergyManager().addNewAllergey(newAllergy, getApplicationContext());
+				//AllergyManager.getAllergyManager().addNewAllergey(newAllergy, getApplicationContext());
 								
 				finish();
 

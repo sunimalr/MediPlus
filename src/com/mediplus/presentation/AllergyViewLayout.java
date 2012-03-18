@@ -19,23 +19,23 @@ import android.widget.Toast;
 
 public class AllergyViewLayout extends ListActivity {
 
-	// String allergies[]={"allergy1","Allergy2","allergy3"};
 	ArrayList<String> allergies;
+	ArrayList<Integer> allergyPosition;
 	private Allergy curAllergy;
 	ArrayList<Allergy> curAllergyList;
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
 
 		super.onListItemClick(l, v, position, id);
-		// String str=allergies[position];
 		try {
+			curAllergy = new Allergy();
+			AllergyManager.getAllergyManager().setCurrentAllergy(
+					curAllergyList.get(allergyPosition.get(position)));
+			Intent intent = new Intent(
+					"com.mediplus.presentation.INDIVIDUALALLERGY");
+			startActivity(intent);
 
-			// Intent intent=new Intent(MenuLayout.this, ourClass);
-			// startActivity(intent);
-			Toast.makeText(getApplicationContext(), allergies.get(position),
-					Toast.LENGTH_LONG).show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -44,33 +44,33 @@ public class AllergyViewLayout extends ListActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setup();
-		/*
+
 		setListAdapter(new ArrayAdapter<String>(AllergyViewLayout.this,
 				R.layout.allergylistitem, allergies));
-	*/
+
 	}
 
 	private void setup() {
-
+		allergies = new ArrayList<String>();
+		allergyPosition = new ArrayList<Integer>();
 		curAllergy = new Allergy();
 		curAllergyList = AllergyManager.getAllergyManager().getAllergyList(
 				getApplicationContext(), "Sunimal Rathnayake");
-		curAllergy.setAllergy("test Allergy");
-		curAllergyList.add(curAllergy);
-		Toast.makeText(getApplicationContext(),curAllergy.getAllergy(), Toast.LENGTH_LONG).show();
-		//allergies.add(curAllergy.getAllergy());		
-		/*
-		 * if (curAllergyList.size() > 0) {
-		 * allergyProfile.setText(curAllergyList.get(index).getUser());
-		 * etAllergy.setText(curAllergyList.get(index).getAllergy());
-		 * etSymptoms.setText(curAllergyList.get(index).getSymptoms());
-		 * etTreatment.setText(curAllergyList.get(index).getTreatment()); } else
-		 * Toast.makeText(getApplicationContext(),
-		 * "No Allergies for this user..!!", Toast.LENGTH_LONG).show();
-		 */
+
+		int idx = curAllergyList.size() - 1;
+		for (Allergy c : curAllergyList) {
+
+		}
+		while (idx >= 0) {
+			allergies.add(curAllergyList.get(idx).getAllergy());
+			allergyPosition.add(idx);
+			idx--;
+		}
+
 	}
+	
+	
 
 }

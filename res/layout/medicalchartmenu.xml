@@ -39,13 +39,13 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/btCreateNewChart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create New Chart" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btOpenExistingChart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Open Existing Chart" />

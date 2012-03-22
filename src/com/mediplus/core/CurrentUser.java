@@ -1,10 +1,27 @@
 package com.mediplus.core;
 
 public class CurrentUser {
-	private String currentUserName;
+	private String currentUserName="Sunimal Rathnayake";
 	private String currentUserType;
 	private String currentUserGender;
 
+	private static CurrentUser instance = null;
+
+	private CurrentUser() {
+
+	}
+
+	public static CurrentUser getCurrentUser() {
+
+		if (instance == null)
+			instance = new CurrentUser();
+
+		return instance;
+
+	}
+	
+	
+	
 	public String getCurrentUserName() {
 		return currentUserName;
 	}

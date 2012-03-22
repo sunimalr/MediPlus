@@ -1,8 +1,10 @@
 package com.mediplus.persistence;
 
 import com.mediplus.entity.Allergy;
+import com.mediplus.entity.MedicalChartRecord;
 import com.mediplus.entity.MedicalRecord;
 import com.mediplus.entity.User;
+import com.mediplus.presentation.MedicalChartMenuLayout;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -25,6 +27,7 @@ public class DatabaseUtil {
 	private static final String DATABASE_TABLE = "tb_allergy";
 	private static final String DATABASE_TABLE_PROFILE = "tb_user_profile";
 	private static final String DATABASE_TABLE_MEDICAL_HISTORY = "tb_history";
+	private static final String DATABASE_TABLE_MEDICAL_CHARTS = "tb_medicharts";
 	public static final String KEY_NAME = "name";
 	public static final String KEY_GRADE = "grade";
 	public static final String KEY_ROWID = "_id";
@@ -50,6 +53,16 @@ public class DatabaseUtil {
 	// ###########################################################################
 
 	/*
+	 * Medical charts attributes
+	 */
+
+	private static final String KEY_MEDICAL_CHARTS_PROFILE = "profile";
+	private static final String KEY_MEDICAL_CHARTS_CHART = "chartname";
+	private static final String KEY_MEDICAL_CHARTS_DATE_TIME = "date_time";
+	private static final String KEY_MEDICAL_CHARTS_VALUE = "description";
+	// ###########################################################################
+
+	/*
 	 * Profile table attributes
 	 */
 	private static final String KEY_PROFILE_PROFILE = "profile";
@@ -69,6 +82,13 @@ public class DatabaseUtil {
 			+ KEY_ALLERGY_SYMPTOMS + " text not null, " + KEY_ALLERGY_TREATMENT
 			+ " text not null);";
 
+	private static final String CREATE_MEDICAL_CHARTS_TABLE = "create table "
+			+ DATABASE_TABLE_MEDICAL_CHARTS + " (" + KEY_MEDICAL_CHARTS_PROFILE
+			+ " text not null , " + KEY_MEDICAL_CHARTS_CHART
+			+ " text not null, " + KEY_MEDICAL_CHARTS_DATE_TIME
+			+ " text not null, " + KEY_MEDICAL_CHARTS_VALUE
+			+ " float not null);";
+
 	// Date stored as ddmmyyyy
 
 	private static final String CREATE_MEDICAL_HISTORY_TABLE = "create table "
@@ -82,8 +102,7 @@ public class DatabaseUtil {
 			+ " text not null , " + KEY_PROFILE_GENDER + " text , "
 			+ KEY_PROFILE_DOB + " text , " + KEY_PROFILE_WEIGHT + " float, "
 			+ KEY_PROFILE_HEIGHT + " float , " + KEY_PROFILE_DESCRIPTION
-			+ " text , " 
-			+ KEY_PROFILE_TYPE+" text );";
+			+ " text , " + KEY_PROFILE_TYPE + " text );";
 
 	private final Context mCtx;
 
@@ -108,6 +127,7 @@ public class DatabaseUtil {
 			db.execSQL(CREATE_ALLERGY_TABLE);
 			db.execSQL(CREATE_MEDICAL_HISTORY_TABLE);
 			db.execSQL(CREATE_PROFILE_TABLE);
+			db.execSQL(CREATE_MEDICAL_CHARTS_TABLE);
 		}
 
 		/**
@@ -177,6 +197,18 @@ public class DatabaseUtil {
 
 	}
 
+	public long addMedicalChartRecord(MedicalChartRecord m) {
+		ContentValues initialValues = new ContentValues();
+
+		initialValues.put(KEY_MEDICAL_CHARTS_PROFILE, m.getProfile());
+		initialValues.put(KEY_MEDICAL_CHARTS_CHART, m.getMedicalChart());
+		initialValues.put(KEY_MEDICAL_CHARTS_DATE_TIME, m.getDateTime());
+		initialValues.put(KEY_MEDICAL_CHARTS_VALUE, m.getValue());
+
+		return mDb.insert(DATABASE_TABLE_MEDICAL_CHARTS, null, initialValues);
+
+	}
+
 	public long addProfile(User u) {
 		ContentValues initialValues = new ContentValues();
 
@@ -187,8 +219,6 @@ public class DatabaseUtil {
 		initialValues.put(KEY_PROFILE_HEIGHT, u.getHeight());
 		initialValues.put(KEY_PROFILE_DESCRIPTION, u.getDesc());
 		initialValues.put(KEY_PROFILE_TYPE, u.getType());
-		
-		
 
 		return mDb.insert(DATABASE_TABLE_PROFILE, null, initialValues);
 
@@ -207,6 +237,17 @@ public class DatabaseUtil {
 		return mDb.delete(DATABASE_TABLE,
 				KEY_ALLERGY_ALLERGY + "=" + a.getAllergy() + "AND"
 						+ KEY_ALLERGY_PROFILE + "=" + a.getUser(), null) > 0;
+	}
+
+	public boolean deleteMedicalChartRecord(MedicalChartRecord a) {
+
+		return mDb.delete(
+				DATABASE_TABLE_MEDICAL_CHARTS,
+				KEY_MEDICAL_CHARTS_PROFILE + "=" + a.getProfile() + "AND"
+						+ KEY_MEDICAL_CHARTS_CHART + "=" + a.getMedicalChart()
+						+ "AND" + KEY_MEDICAL_CHARTS_DATE_TIME + "="
+						+ a.getDateTime() + "AND" + KEY_MEDICAL_CHARTS_VALUE
+						+ "=" + a.getValue(), null) > 0;
 	}
 
 	public boolean deleteMedicalHistoryRecord(MedicalRecord m) {
@@ -231,6 +272,33 @@ public class DatabaseUtil {
 		return mDb.query(DATABASE_TABLE, new String[] { KEY_ALLERGY_PROFILE,
 				KEY_ALLERGY_ALLERGY, KEY_ALLERGY_SYMPTOMS,
 				KEY_ALLERGY_TREATMENT }, null, null, null, null, null);
+	}
+
+	public Cursor fetchMedicalChartsList(String profile) throws SQLException {
+		Cursor mCursor = mDb.query(true, DATABASE_TABLE, new String[] {
+				KEY_MEDICAL_CHARTS_PROFILE, KEY_MEDICAL_CHARTS_CHART },
+				KEY_MEDICAL_CHARTS_PROFILE + "=?", new String[] { profile },
+				null, null, null, null);
+		if (mCursor != null) {
+
+			mCursor.moveToFirst();
+		}
+		return mCursor;
+	}
+
+	public Cursor fetchMedicalChartsRecords(String profile, String chart)
+			throws SQLException {
+		Cursor mCursor = mDb.query(true, DATABASE_TABLE_MEDICAL_CHARTS,
+				new String[] { KEY_MEDICAL_CHARTS_PROFILE,
+						KEY_MEDICAL_CHARTS_CHART, KEY_MEDICAL_CHARTS_DATE_TIME,
+						KEY_MEDICAL_CHARTS_VALUE }, KEY_MEDICAL_CHARTS_PROFILE
+						+ " =? AND " + KEY_MEDICAL_CHARTS_CHART + " =?",
+				new String[] { profile, chart }, null, null, null, null);
+		if (mCursor != null) {
+
+			mCursor.moveToFirst();
+		}
+		return mCursor;
 	}
 
 	public Cursor fetchAllMedicalHistoryRecord() {
@@ -259,8 +327,6 @@ public class DatabaseUtil {
 		}
 		return mCursor;
 	}
-	
-	
 
 	public Cursor fetchProfileMedicalHistory(String profile)
 			throws SQLException {
@@ -288,16 +354,16 @@ public class DatabaseUtil {
 		}
 		return mCursor;
 	}
-	
+
 	public Cursor fetchMasterProfile() throws SQLException {
-				
-		Cursor mCursor = mDb.query(true, DATABASE_TABLE_PROFILE,
-				new String[] { KEY_PROFILE_PROFILE, KEY_PROFILE_GENDER,
-						KEY_PROFILE_DOB, KEY_PROFILE_WEIGHT,
-						KEY_PROFILE_HEIGHT, KEY_PROFILE_DESCRIPTION, KEY_PROFILE_TYPE },
-				KEY_PROFILE_PROFILE + "=?", new String[] { "Sunimal Rathnayake" }, null,
-				null, null, null);
-		
+
+		Cursor mCursor = mDb.query(true, DATABASE_TABLE_PROFILE, new String[] {
+				KEY_PROFILE_PROFILE, KEY_PROFILE_GENDER, KEY_PROFILE_DOB,
+				KEY_PROFILE_WEIGHT, KEY_PROFILE_HEIGHT,
+				KEY_PROFILE_DESCRIPTION, KEY_PROFILE_TYPE },
+				KEY_PROFILE_PROFILE + "=?",
+				new String[] { "Sunimal Rathnayake" }, null, null, null, null);
+
 		if (mCursor != null) {
 			mCursor.moveToFirst();
 		}
@@ -320,6 +386,25 @@ public class DatabaseUtil {
 		args.put(KEY_ALLERGY_TREATMENT, a.getTreatment());
 		return mDb.update(DATABASE_TABLE, args,
 				KEY_ALLERGY_ALLERGY + "=" + a.getAllergy(), null) > 0;
+	}
+
+	public boolean updateMedicalChartRecord(MedicalChartRecord a,
+			MedicalChartRecord oldrec) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_MEDICAL_CHARTS_PROFILE, a.getProfile());
+		args.put(KEY_MEDICAL_CHARTS_CHART, a.getMedicalChart());
+		args.put(KEY_MEDICAL_CHARTS_DATE_TIME, a.getDateTime());
+		args.put(KEY_ALLERGY_TREATMENT, a.getValue());
+		return mDb.update(
+				DATABASE_TABLE_MEDICAL_CHARTS,
+				args,
+				KEY_MEDICAL_CHARTS_PROFILE + "=" + oldrec.getProfile()
+						+ " AND " + KEY_MEDICAL_CHARTS_CHART + " = "
+						+ oldrec.getMedicalChart() + " AND "
+						+ KEY_MEDICAL_CHARTS_DATE_TIME + " = "
+						+ oldrec.getDateTime() + " AND "
+						+ KEY_MEDICAL_CHARTS_VALUE + " = " + oldrec.getValue(),
+				null) > 0;
 	}
 
 	public void updateMedicalHistoryRecord(MedicalRecord m, MedicalRecord old) {

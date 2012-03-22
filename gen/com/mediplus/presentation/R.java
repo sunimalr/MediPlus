@@ -26,6 +26,7 @@ public final class R {
         public static final int btAddnewAllergy=0x7f060011;
         public static final int btAllergyAdd=0x7f06000d;
         public static final int btAllergySaveChanges=0x7f060016;
+        public static final int btCreateNewChart=0x7f06001f;
         public static final int btDeleteMedicalHistory=0x7f060028;
         public static final int btEditProfile=0x7f060024;
         public static final int btGetAllergyList=0x7f06000e;
@@ -35,6 +36,7 @@ public final class R {
         public static final int btIndividualAllergyEdit=0x7f06001b;
         public static final int btMedicalHistoryExit=0x7f06002a;
         public static final int btMedicalHistoryToProfile=0x7f06002b;
+        public static final int btOpenExistingChart=0x7f060020;
         public static final int btProfileAllergies=0x7f060036;
         public static final int btProfileEvents=0x7f060039;
         public static final int btProfileMedicalCharts=0x7f06003a;
@@ -44,8 +46,6 @@ public final class R {
         public static final int btProfileviewEvents=0x7f060042;
         public static final int btProfileviewMedicalCharts=0x7f060043;
         public static final int btProfileviewMedicalHistory=0x7f060041;
-        public static final int button1=0x7f06001f;
-        public static final int button2=0x7f060020;
         public static final int datePickerMedicalHistory=0x7f060025;
         public static final int editText1=0x7f060026;
         public static final int etAllergyEditMedication=0x7f060015;

@@ -68,7 +68,7 @@ public class AllergyViewLayout extends ListActivity {
 			allergyPosition.add(idx);
 			idx--;
 		}
-
+		
 	}
 	
 	

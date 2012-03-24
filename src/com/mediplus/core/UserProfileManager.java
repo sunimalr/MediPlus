@@ -1,7 +1,9 @@
 package com.mediplus.core;
 
+import test.ToastTest;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.widget.Toast;
 
 import com.mediplus.entity.User;
@@ -75,6 +77,7 @@ public class UserProfileManager {
 		User tempUser = new User();
 		// String name="sun";
 
+		
 		Cursor cursor = dbUtil.fetchMasterProfile();
 /*
 		tempUser.setUser(cursor.getString(0));
@@ -89,6 +92,8 @@ public class UserProfileManager {
 */		
 		tempUser.setUser("na");
 
+		try{
+		
 		if (cursor != null) {
 			//while (cursor.moveToNext()) {
 				tempUser.setUser(cursor.getString(0));
@@ -103,8 +108,12 @@ public class UserProfileManager {
 			//}
 		} else
 			Toast.makeText(ctx, "No Master Profile", Toast.LENGTH_LONG).show();
+		}catch (CursorIndexOutOfBoundsException e) {
 			
+			ToastTest.getToastTest().toastTest("Add Master Profile First");
+		}
 
+	
 		dbUtil.close();
 		/*
 		if (tempUser.getUser().equalsIgnoreCase("na")) {

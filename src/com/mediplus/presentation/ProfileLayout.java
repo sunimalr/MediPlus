@@ -3,6 +3,9 @@ package com.mediplus.presentation;
 import java.util.ArrayList;
 import java.util.jar.Attributes.Name;
 
+import test.ToastTest;
+
+import com.mediplus.core.CurrentUser;
 import com.mediplus.core.UserProfileManager;
 import com.mediplus.entity.Allergy;
 import com.mediplus.entity.User;
@@ -35,7 +38,9 @@ public class ProfileLayout extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		//if(CurrentUser.getCurrentUser().isFirstuser())
 		setContentView(R.layout.profilemainview);
+		CurrentUser.getCurrentUser().setCtx(getApplicationContext());
 		this.setup();
 		
 		eventListeners();
@@ -70,7 +75,7 @@ public class ProfileLayout extends Activity{
 		
 		
 		
-		
+		/*
 		curUser1=new User();
 		curUser1.setUser("Sunimal Rathnayake");
 		curUser1.setType("master");
@@ -78,14 +83,14 @@ public class ProfileLayout extends Activity{
 		curUser1.setDob("21/01/1990");
 		curUser1.setWeight(Float.parseFloat("80.4"));
 		curUser1.setHeight(Float.parseFloat("144.2"));
-		
+		*/
 		
 		
 		//dbUtil.addProfile(curUser);
 		//dbUtil.close();
 		//curUser=UserProfileManager.getUserProfileManager().getUserDetails("Sunimal", getApplicationContext());
 		//UserProfileManager.getUserProfileManager().init(getApplicationContext(), curUser);
-		UserProfileManager.getUserProfileManager().updateProfile(curUser1, getApplicationContext());
+		//UserProfileManager.getUserProfileManager().updateProfile(curUser1, getApplicationContext());
 		
 		curUser=UserProfileManager.getUserProfileManager().loadMasterProfile(getApplicationContext());
 		

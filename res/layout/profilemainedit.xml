@@ -16,7 +16,7 @@
             android:src="@drawable/user_male" />
 
         <TextView
-            android:id="@+id/tvProfileName"
+            android:id="@+id/tvProfileNameEdit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.85"
@@ -41,7 +41,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <RadioGroup
-            android:id="@+id/radioGroup1"
+            android:id="@+id/radioGroupGender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.34"
@@ -100,7 +100,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/etDateOfBirth"
+            android:id="@+id/etDateOfBirthEdit"
             android:layout_width="151dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.59"
@@ -129,7 +129,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/etWeight"
+                android:id="@+id/etWeightEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -143,7 +143,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/etHeight"
+                android:id="@+id/etHeightEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -156,20 +156,17 @@
             android:layout_height="wrap_content" >
 
             <Button
-                android:id="@+id/btProfileAllergies"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1.61"
-                android:gravity="fill_vertical"
-                android:text="Allergies"
-                android:textSize="15sp" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
+                android:id="@+id/btSaveEdited"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.52"
-                android:src="@drawable/user_anonymous" />
+                android:text="Save" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
         </LinearLayout>
 
         <LinearLayout
@@ -177,21 +174,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <Button
-                android:id="@+id/btProfileMedicalHistory"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1.09"
-                android:gravity="fill_vertical"
-                android:text="Medical History"
-                android:textSize="15sp" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.52"
-                android:src="@drawable/user_anonymous" />
         </LinearLayout>
 
         <LinearLayout
@@ -199,46 +181,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <Button
-                android:id="@+id/btProfileEvents"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1.74"
-                android:gravity="fill_vertical"
-                android:text="Events"
-                android:textSize="15sp" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.52"
-                android:src="@drawable/user_anonymous" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <Button
-                android:id="@+id/btProfileMedicalCharts"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1.11"
-                android:gravity="fill_vertical"
-                android:text="Medical Charts"
-                android:textSize="15sp" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.52"
-                android:src="@drawable/user_anonymous" />
         </LinearLayout>
     </LinearLayout>
-
+<LinearLayout 
+    
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    >
+    
+</LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"

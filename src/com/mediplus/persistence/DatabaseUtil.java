@@ -1,5 +1,7 @@
 package com.mediplus.persistence;
 
+import test.ToastTest;
+
 import com.mediplus.entity.Allergy;
 import com.mediplus.entity.MedicalChartRecord;
 import com.mediplus.entity.MedicalRecord;
@@ -22,7 +24,7 @@ public class DatabaseUtil {
 	 */
 
 	private static final String TAG = "DatabaseUtil";
-	private static final String DATABASE_NAME = "mediplusDB2";
+	private static final String DATABASE_NAME = "mediplusDB4";
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_TABLE = "tb_allergy";
 	private static final String DATABASE_TABLE_PROFILE = "tb_user_profile";
@@ -275,13 +277,16 @@ public class DatabaseUtil {
 	}
 
 	public Cursor fetchMedicalChartsList(String profile) throws SQLException {
-		Cursor mCursor = mDb.query(true, DATABASE_TABLE, new String[] {
+		Cursor mCursor = mDb.query(true, DATABASE_TABLE_MEDICAL_CHARTS, new String[] {
 				KEY_MEDICAL_CHARTS_PROFILE, KEY_MEDICAL_CHARTS_CHART },
 				KEY_MEDICAL_CHARTS_PROFILE + "=?", new String[] { profile },
 				null, null, null, null);
 		if (mCursor != null) {
-
+			ToastTest.getToastTest().toastTest("retrieved");
 			mCursor.moveToFirst();
+		}else
+		{
+			ToastTest.getToastTest().toastTest("not retrieved");
 		}
 		return mCursor;
 	}

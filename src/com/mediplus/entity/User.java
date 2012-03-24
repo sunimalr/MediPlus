@@ -10,8 +10,14 @@ public class User {
 	String desc;
 	String photo;
 	String type;
-	
+	String bloodGroup;
 		
+	public String getBloodGroup() {
+		return bloodGroup;
+	}
+	public void setBloodGroup(String bloodGroup) {
+		this.bloodGroup = bloodGroup;
+	}
 	public String getType() {
 		return type;
 	}

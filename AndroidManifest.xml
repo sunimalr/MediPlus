@@ -36,6 +36,35 @@
         </activity>
         
         <activity
+            android:name=".MedicalChartLayout"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.mediplus.presentation.MEDICALCHART" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name=".ChartListLayout"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.mediplus.presentation.CHARTLISTLAYOUT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+         <activity
+            android:name=".ProfileEditLayout"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.mediplus.presentation.PROFILEEDITLAYOUT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".AllergyViewLayout"
             android:label="Allergies" >
             <intent-filter>

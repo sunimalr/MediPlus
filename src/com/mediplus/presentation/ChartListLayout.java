@@ -45,6 +45,7 @@ public class ChartListLayout extends ListActivity {
 			chartPosition.add(idx);
 			idx--;
 		}
+		charts.add("size "+ curChartList.size());
 
 	}
 
@@ -55,9 +56,14 @@ public class ChartListLayout extends ListActivity {
 		try {
 			//curAllergy = new Allergy();
 			MedicalChartManager.getMedicalChartManager().setCurrentChart(curChartList.get(chartPosition.get(position)));
-					//	Intent intent = new Intent(
-				//	"com.mediplus.presentation.MEDICALCHART");
-		//	startActivity(intent);
+			try{
+				Class ourClass=Class.forName("com.mediplus.presentation.MedicalChartLayout");
+			
+				Intent intent=new Intent(ChartListLayout.this, ourClass);
+				startActivity(intent);
+				}catch(ClassNotFoundException e){
+					e.printStackTrace();
+				}
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -2,11 +2,14 @@ package com.mediplus.core;
 
 import java.util.ArrayList;
 
+import test.ToastTest;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.widget.Toast;
 
 import com.mediplus.entity.Allergy;
+import com.mediplus.entity.ElementData;
 import com.mediplus.entity.MedicalChartRecord;
 import com.mediplus.persistence.DatabaseUtil;
 
@@ -15,6 +18,15 @@ public class MedicalChartManager {
 	private static MedicalChartManager instance = null;;
 	DatabaseUtil dbUtil;
 	private String curChart;
+	ArrayList<ElementData> plotData;
+
+	public ArrayList<ElementData> getPlotData() {
+		return plotData;
+	}
+
+	public void setPlotData(ArrayList<ElementData> plotData) {
+		this.plotData = plotData;
+	}
 
 	private MedicalChartManager() {
 
@@ -82,22 +94,41 @@ public class MedicalChartManager {
 
 		dbUtil = new DatabaseUtil(ctx);
 		dbUtil.open();
+		MedicalChartRecord r=new MedicalChartRecord();
+		MedicalChartRecord r1=new MedicalChartRecord();
+		r.setProfile(CurrentUser.getCurrentUser().getCurrentUserName());
+		r.setMedicalChart("Test Chart");
+		r.setDateTime("24/03/2012 12:12");
+		r.setValue(Float.parseFloat("11.24"));
+		
+		r1.setProfile(CurrentUser.getCurrentUser().getCurrentUserName());
+		r1.setMedicalChart("Test Chart 2");
+		r1.setDateTime("24/03/2012 1:47");
+		r1.setValue(Float.parseFloat("11.20"));
+		
+		dbUtil.addMedicalChartRecord(r);
+		dbUtil.addMedicalChartRecord(r1);
+		dbUtil.close();
+		dbUtil.open();
 		ArrayList<String> templist = new ArrayList<String>();
 		Cursor cursor = dbUtil.fetchMedicalChartsList(profile);
-
+		ToastTest.getToastTest().toastTest("data 1= "+cursor.getString(1));
 		if (cursor != null) {
-
+			String temp = new String();
+			temp = cursor.getString(1);
+			templist.add(temp);
 			while (cursor.moveToNext()) {
-				String temp = new String();
+				//String temp = new String();
 				temp = cursor.getString(1);
 				templist.add(temp);
+				ToastTest.getToastTest().toastTest("data = "+cursor.getString(1));
 
 			}
 
-		} else
+		} else{
 			Toast.makeText(ctx, "Cannot load medical charts list..",
 					Toast.LENGTH_LONG);
-
+		}
 		dbUtil.close();
 
 		return templist;

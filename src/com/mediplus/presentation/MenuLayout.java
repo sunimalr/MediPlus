@@ -1,5 +1,9 @@
 package com.mediplus.presentation;
 
+import test.ToastTest;
+
+import com.mediplus.core.CurrentUser;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +14,7 @@ import android.widget.ListView;
 public class MenuLayout extends ListActivity{
 	
 	String lists[]={"My Profile","Other Profiles","General Reminders","Backup","Sync With Server","Exit"};
-	String classes[]={"ProfileLayout","Graph","","","",""};
+	String classes[]={"ProfileLayout","ProfileEditLayout","","","",""};
 	
 	
 	@Override
@@ -35,6 +39,11 @@ public class MenuLayout extends ListActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setListAdapter(new ArrayAdapter<String>(MenuLayout.this, android.R.layout.simple_list_item_1, lists));
+		CurrentUser.getCurrentUser().setCtx(getApplicationContext());
+		ToastTest.getToastTest().toastTest("Is First : "+CurrentUser.getCurrentUser().isFirst());
+		if(CurrentUser.getCurrentUser().isFirst()){
+			classes[0]=new String("ProfileEditLayout");
+		}
 	}
 
 	

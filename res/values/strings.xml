@@ -7,14 +7,14 @@
        
     
     <string-array name="blood_groups">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>O+</item>
+        <item>O-</item>
+        <item>AB+</item>
+        <item>AB-</item>
     </string-array>
 
 </resources>

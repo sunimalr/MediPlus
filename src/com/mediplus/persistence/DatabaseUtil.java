@@ -24,10 +24,10 @@ public class DatabaseUtil {
 	 */
 
 	private static final String TAG = "DatabaseUtil";
-	private static final String DATABASE_NAME = "mediplusDB4";
+	private static final String DATABASE_NAME = "mediplusDB_test3";
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_TABLE = "tb_allergy";
-	private static final String DATABASE_TABLE_PROFILE = "tb_user_profile";
+	private static final String DATABASE_TABLE_PROFILE = "tb_user_pro";
 	private static final String DATABASE_TABLE_MEDICAL_HISTORY = "tb_history";
 	private static final String DATABASE_TABLE_MEDICAL_CHARTS = "tb_medicharts";
 	public static final String KEY_NAME = "name";
@@ -74,6 +74,8 @@ public class DatabaseUtil {
 	private static final String KEY_PROFILE_HEIGHT = "height";
 	private static final String KEY_PROFILE_TYPE = "type";
 	private static final String KEY_PROFILE_DESCRIPTION = "description";
+	private static final String KEY_PROFILE_BLOOD = "blood";
+	
 
 	/*
 	 * following strings contain the sql queries to create database tables
@@ -103,8 +105,7 @@ public class DatabaseUtil {
 			+ DATABASE_TABLE_PROFILE + " (" + KEY_PROFILE_PROFILE
 			+ " text not null , " + KEY_PROFILE_GENDER + " text , "
 			+ KEY_PROFILE_DOB + " text , " + KEY_PROFILE_WEIGHT + " float, "
-			+ KEY_PROFILE_HEIGHT + " float , " + KEY_PROFILE_DESCRIPTION
-			+ " text , " + KEY_PROFILE_TYPE + " text );";
+			+ KEY_PROFILE_HEIGHT + " float , " +KEY_PROFILE_TYPE + " text" + KEY_PROFILE_BLOOD+" text );";
 
 	private final Context mCtx;
 
@@ -219,8 +220,9 @@ public class DatabaseUtil {
 		initialValues.put(KEY_PROFILE_DOB, u.getDob());
 		initialValues.put(KEY_PROFILE_WEIGHT, u.getWeight());
 		initialValues.put(KEY_PROFILE_HEIGHT, u.getHeight());
-		initialValues.put(KEY_PROFILE_DESCRIPTION, u.getDesc());
+		//initialValues.put(KEY_PROFILE_DESCRIPTION, u.getDesc());
 		initialValues.put(KEY_PROFILE_TYPE, u.getType());
+		//initialValues.put(KEY_PROFILE_BLOOD, u.getBloodGroup());
 
 		return mDb.insert(DATABASE_TABLE_PROFILE, null, initialValues);
 
@@ -351,7 +353,7 @@ public class DatabaseUtil {
 		Cursor mCursor = mDb.query(true, DATABASE_TABLE_PROFILE,
 				new String[] { KEY_PROFILE_PROFILE, KEY_PROFILE_GENDER,
 						KEY_PROFILE_DOB, KEY_PROFILE_WEIGHT,
-						KEY_PROFILE_HEIGHT, KEY_PROFILE_DESCRIPTION },
+						KEY_PROFILE_HEIGHT},
 				KEY_PROFILE_PROFILE + "=?", new String[] { profile }, null,
 				null, null, null);
 		if (mCursor != null) {
@@ -365,9 +367,9 @@ public class DatabaseUtil {
 		Cursor mCursor = mDb.query(true, DATABASE_TABLE_PROFILE, new String[] {
 				KEY_PROFILE_PROFILE, KEY_PROFILE_GENDER, KEY_PROFILE_DOB,
 				KEY_PROFILE_WEIGHT, KEY_PROFILE_HEIGHT,
-				KEY_PROFILE_DESCRIPTION, KEY_PROFILE_TYPE },
-				KEY_PROFILE_PROFILE + "=?",
-				new String[] { "Sunimal Rathnayake" }, null, null, null, null);
+				KEY_PROFILE_TYPE },
+				KEY_PROFILE_TYPE + "= ?",
+				new String[] { "master" }, null, null, null, null);
 
 		if (mCursor != null) {
 			mCursor.moveToFirst();

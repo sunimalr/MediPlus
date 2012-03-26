@@ -15,14 +15,28 @@
             android:layout_height="wrap_content"
             android:src="@drawable/user_male" />
 
-        <TextView
-            android:id="@+id/tvProfileNameEdit"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout9"
+            android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.85"
-            android:gravity="center"
-            android:text="ProfileName"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Name"
+                android:gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/etProfileNameEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -216,7 +230,7 @@
             android:id="@+id/btEditProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update Profile" />
+            android:text="Edit Profile" />
     </LinearLayout>
 
    

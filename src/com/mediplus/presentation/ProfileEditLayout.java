@@ -3,12 +3,14 @@ package com.mediplus.presentation;
 import test.ToastTest;
 
 import com.mediplus.core.CurrentUser;
+import com.mediplus.core.MedicalNotificationManager;
 import com.mediplus.core.UserProfileManager;
 import com.mediplus.entity.User;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,14 +25,14 @@ public class ProfileEditLayout extends Activity {
 
 	private RadioButton male, female;
 	private TextView tvProfileName;
-	private EditText etDOB, etWeight, etHeight;
+	private EditText etDOB, etWeight, etHeight,etProfileName;
 	private Spinner spBloodGroup;
 	private Button btSave;
 	private User curUser,editingUser;
 
 	private void setup() {
 
-		tvProfileName = (TextView) findViewById(R.id.tvProfileNameEdit);
+		
 		male = (RadioButton) findViewById(R.id.radioMale);
 		female = (RadioButton) findViewById(R.id.radioFemale);
 		etDOB = (EditText) findViewById(R.id.etDateOfBirthEdit);
@@ -38,6 +40,7 @@ public class ProfileEditLayout extends Activity {
 		etHeight = (EditText) findViewById(R.id.etHeightEdit);
 		spBloodGroup = (Spinner) findViewById(R.id.spinnerBloodGroup);
 		btSave = (Button) findViewById(R.id.btSaveEdited);
+		etProfileName=(EditText)findViewById(R.id.etProfileNameEdit);
 
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.blood_groups, android.R.layout.simple_spinner_item);
 	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -54,11 +57,11 @@ public class ProfileEditLayout extends Activity {
 
 			tvProfileName.setText(curUser.getUser());
 			if (curUser.getGender().equalsIgnoreCase("male")) {
-				male.setSelected(true);
-				female.setSelected(false);
+				male.setChecked(true);
+				female.setChecked(false);
 			} else {
-				female.setSelected(true);
-				male.setSelected(false);
+				female.setChecked(true);
+				male.setChecked(false);
 			}
 
 			etDOB.setText(curUser.getDob());
@@ -96,6 +99,26 @@ public class ProfileEditLayout extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profilemainedit);
+		/*
+		 * 
+		 *Testinggggggggggg 
+		 * 
+		 */
+		
+		
+			MedicalNotificationManager m=new MedicalNotificationManager();
+			m.setAlarmNotification(getApplicationContext());
+			
+		
+		
+		/*
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		
 		setup();
 		setEventListners();
 	}
@@ -110,7 +133,7 @@ public class ProfileEditLayout extends Activity {
 				
 				editingUser.setUser(CurrentUser.getCurrentUser().getCurrentUserName());
 				editingUser.setDob(etDOB.getText().toString());
-				if(male.isSelected()){
+				if(male.isChecked()){
 				editingUser.setGender("male");
 				
 				}else{
@@ -128,18 +151,24 @@ public class ProfileEditLayout extends Activity {
 				editingUser.setWeight(Float.parseFloat("0.00"));
 				
 			}
+			editingUser.setUser(etProfileName.getText().toString());
 				editingUser.setBloodGroup(spBloodGroup.getSelectedItem().toString());
 				
 				CurrentUser.getCurrentUser().setCtx(getApplicationContext());
 				ToastTest.getToastTest().toastTest(editingUser.getBloodGroup());
 				
 				if(CurrentUser.getCurrentUser().isFirstuser()){
+					editingUser.setType("master");
 					UserProfileManager.getUserProfileManager().init(getApplicationContext(), editingUser);
 				}else {
 					UserProfileManager.getUserProfileManager().updateProfile(editingUser, getApplicationContext());
 				}
 				
 				CurrentUser.getCurrentUser().setFirstuser(false);
+				
+				Intent in=new Intent("com.mediplus.presentation.PROFILE");
+				startActivity(in);
+				finish();
 				
 			}
 		});

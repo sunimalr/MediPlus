@@ -142,8 +142,11 @@ public class ProfileLayout extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
 				User u=new User();
+				
 				u.setUser(profileName.getText().toString());
+				
 				if(male.isChecked())
 					u.setGender("male");
 				else

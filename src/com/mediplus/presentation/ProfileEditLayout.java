@@ -50,12 +50,9 @@ public class ProfileEditLayout extends Activity {
 			CurrentUser.getCurrentUser().setCtx(getApplicationContext());
 			ToastTest.getToastTest().toastTest("Dialogtest1");
 			editingUser=new User();
-			curUser = UserProfileManager.getUserProfileManager()
-					.getUserDetails(
-							CurrentUser.getCurrentUser().getCurrentUserName(),
-							getApplicationContext());
-
-			tvProfileName.setText(curUser.getUser());
+			curUser=UserProfileManager.getUserProfileManager().loadMasterProfile(getApplicationContext());
+			CurrentUser.getCurrentUser().setCurrentUserName(curUser.getUser());
+			tvProfileName.setText(CurrentUser.getCurrentUser().getCurrentUserName());
 			if (curUser.getGender().equalsIgnoreCase("male")) {
 				male.setChecked(true);
 				female.setChecked(false);
@@ -77,19 +74,7 @@ public class ProfileEditLayout extends Activity {
 			editingUser=new User();
 			editingUser.setType("master");
 			CurrentUser.getCurrentUser().setCurrentUserType("master");
-			Context mContext = getApplicationContext();
-			Dialog dialog = new Dialog(mContext);
-
-			dialog.setContentView(R.layout.inputdialog);
-			CurrentUser.getCurrentUser().setCtx(getApplicationContext());
-			ToastTest.getToastTest().toastTest("Dialogtest");
-			dialog.setTitle("Input Dialog");
-
-			
-			EditText text=(EditText)dialog.findViewById(R.id.etDialogInput);
-			text.setText("Enter Your Name..");
-			Button btDialogOK=(Button) dialog.findViewById(R.id.btDialogOK);
-			
+						
 		}
 
 	}
@@ -99,26 +84,6 @@ public class ProfileEditLayout extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profilemainedit);
-		/*
-		 * 
-		 *Testinggggggggggg 
-		 * 
-		 */
-		
-		
-			MedicalNotificationManager m=new MedicalNotificationManager();
-			m.setAlarmNotification(getApplicationContext());
-			
-		
-		
-		/*
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 */
-		
 		setup();
 		setEventListners();
 	}

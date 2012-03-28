@@ -25,7 +25,7 @@ public class Graph extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-
+		drawGraph();
 			
 
 	}
@@ -46,7 +46,7 @@ public class Graph extends Activity{
 			  
 			GraphView graphView = new LineGraphView(  
 			      this // context  
-			      , "GraphViewDemo" // heading  
+			      , MedicalChartManager.getMedicalChartManager().getCurrentChart() // heading  
 			);  
 			graphView.addSeries(exampleSeries); // data  
 			  

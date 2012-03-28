@@ -61,9 +61,11 @@ public class ChartListLayout extends ListActivity {
 			
 				Intent intent=new Intent(ChartListLayout.this, ourClass);
 				startActivity(intent);
+				
 				}catch(ClassNotFoundException e){
 					e.printStackTrace();
 				}
+			finish();
 
 		} catch (Exception e) {
 			e.printStackTrace();

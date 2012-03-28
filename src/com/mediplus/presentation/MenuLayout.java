@@ -14,7 +14,7 @@ import android.widget.ListView;
 public class MenuLayout extends ListActivity{
 	
 	String lists[]={"My Profile","Other Profiles","General Reminders","Backup","Sync With Server","Exit"};
-	String classes[]={"ProfileLayout","ProfileEditLayout","","","",""};
+	String classes[]={"ProfileLayout","SecondaryProfileMenu","","","",""};
 	
 	
 	@Override
